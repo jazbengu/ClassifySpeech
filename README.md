@@ -1,4 +1,4 @@
-# 🎈 Blank app template
+# Welcome to ClassifySpeech!
 
 A simple Streamlit app template for you to modify!
 
