@@ -1,0 +1,98 @@
+/* General body styling */
+body {
+    font-family: 'Roboto', sans-serif; /* Clean and modern font */
+    background-color: #f5f7fa; /* Soft background */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Container for the content */
+.container {
+    width: 60%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #2c3e50; /* Deep blue-gray */
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #34495e;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dfe6e9;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: vertical;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+/* Select dropdown */
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dfe6e9;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+/* Submit button */
+.btn {
+    background-color: #27ae60; /* Green color */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #2ecc71; /* Lighter green on hover */
+}
+
+/* Translation results */
+h2 {
+    color: #27ae60;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Audio player */
+audio {
+    margin-top: 10px;
+}

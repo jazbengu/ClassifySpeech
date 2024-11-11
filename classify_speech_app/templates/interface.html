@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classify Speech</title>
+    {% load static %}
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #e3e9fa; /* Color 1 */
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        width: 60%;
+        margin: 50px auto;
+        background-color: #f4e3f9; /* Color 2 */
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #c4bedd; /* Color 5 */
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        color: #c4bedd; /* Color 5 */
+      }
+
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #c4bedd; /* Color 5 */
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: #e3e9fa; /* Color 1 */
+        color: #333;
+      }
+
+      .btn {
+        background-color: #e9d6f8; /* Color 3 */
+        color: #333;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #d8dffb; /* Color 4 */
+      }
+
+      h2 {
+        color: #c4bedd; /* Color 5 */
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      audio {
+        margin-top: 10px;
+      }
+
+      label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Classify Speech</h1>
+      <label for="src_lang", style="text-align:center">Understand Your Classmates Better!</label>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="audio">Record or Upload Audio for Translation:</label>
+          <input type="file" name="audio" id="audio" accept="audio/*" />
+
+          <div>
+            <button type="button" id="recordButton">Record</button>
+            <button type="button" id="stopButton" disabled>Stop</button>
+            <p id="recordingStatus"></p>
+          </div>
+
+          <input type="hidden" name="recorded_audio" id="recordedAudio" />
+        </div>
+
+        <div class="form-group">
+          <label for="src_lang">Select Source Language:</label>
+          <select name="src_lang" id="src_lang" required>
+            <option value="en">English</option>
+            <option value="af">Afrikaans</option>
+            <option value="zu">Zulu</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dest_lang">Select Target Language:</label>
+          <select name="dest_lang" id="dest_lang" required>
+            <option value="en">English</option>
+            <option value="af">Afrikaans</option>
+            <option value="zu">Zulu</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <input type="submit" value="Translate" class="btn" />
+        </div>
+      </form>
+
+      {% if transcribed_text %}
+      <h2>Transcribed Text:</h2>
+      <p>{{ transcribed_text }}</p>
+      <p>Detected Language: {{ detected_lang }}</p>
+      {% endif %} {% if translation %}
+      <h2>Translation Result:</h2>
+      <p>{{ translation }}</p>
+      {% endif %} {% if audio_url %}
+      <h2>Play Translation:</h2>
+      <audio controls>
+        <source src="{{ audio_url }}" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+      {% endif %}
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let recordButton = document.getElementById("recordButton");
+        let stopButton = document.getElementById("stopButton");
+        let recordingStatus = document.getElementById("recordingStatus");
+        let recordedAudioInput = document.getElementById("recordedAudio");
+      
+        let mediaRecorder;
+        let recordedChunks = [];
+      
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then((stream) => {
+            mediaRecorder = new MediaRecorder(stream);
+      
+            mediaRecorder.ondataavailable = (event) => {
+              if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+              }
+            };
+      
+            mediaRecorder.onstop = () => {
+              if (recordedChunks.length > 0) {
+                const blob = new Blob(recordedChunks, { type: "audio/webm" });
+                const reader = new FileReader();
+      
+                reader.onloadend = () => {
+                  if (reader.error) {
+                    console.error("Error reading blob as data URL:", reader.error);
+                  } else {
+                    const base64Audio = reader.result.split(",")[1];
+                    recordedAudioInput.value = `data:audio/webm;base64,${base64Audio}`;
+                  }
+                };
+      
+                reader.readAsDataURL(blob);
+                recordingStatus.innerText = "Recording stopped. Audio available.";
+              } else {
+                recordingStatus.innerText = "No audio recorded.";
+              }
+              recordedChunks = []; // Clear the chunks for the next recording
+            };
+      
+            recordButton.addEventListener("click", () => {
+              mediaRecorder.start(60000); // Record for 1 minute
+              recordingStatus.innerText = "Recording...";
+              recordButton.disabled = true;
+              stopButton.disabled = false;
+            });
+      
+            stopButton.addEventListener("click", () => {
+              mediaRecorder.stop();
+              recordButton.disabled = false;
+              stopButton.disabled = true;
+            });
+          })
+          .catch((error) => {
+            if (
+              error.name === "NotAllowedError" ||
+              error.name === "SecurityError"
+            ) {
+              recordingStatus.innerText =
+                "Microphone access denied. Please allow microphone access in your browser settings.";
+            } else if (error.name === "NotFoundError") {
+              recordingStatus.innerText =
+                "No microphone found. Please connect a microphone.";
+            } else {
+              recordingStatus.innerText =
+                "Error accessing microphone: " + error.message;
+            }
+            console.error("Error accessing microphone: ", error);
+          });
+      });
+    </script>
+  </body>
+</html>
