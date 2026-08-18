@@ -1,123 +1,246 @@
-<p align="center">
-  <a href="" rel="noopener">
+# ClassifySpeech
 
-</p>
-<h3 align="center">COMMING SOON</h3>
+**Real-Time Speech-to-Speech Translation with Spatial Audio for Multilingual Smart Learning Environments**
 
-<div align="center">
-
-[![Hackathon](https://img.shields.io/badge/hackathon-name-orange.svg)](http://hackathon.url.com)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
-
-</div>
+[![Python](https://img.shields.io/badge/Python-3.12.4-blue.svg)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://www.djangoproject.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
+## 📌 Overview
 
-## 📝 Table of Contents
+**ClassifySpeech** is a prototype Smart Learning Environment (SLE) that integrates real-time Speech-to-Speech Translation (S2ST) with spatial audio technology to facilitate cross-lingual communication in multilingual classrooms. Built as part of a research project investigating how perspective sharing can support translanguaging, this prototype addresses the critical gap in current SLEs: the lack of tools that enable students to fully utilise their linguistic repertoire for improved comprehension and engagement.
 
-- [Problem Statement](#problem_statement)
-- [Idea / Solution](#idea)
-- [Dependencies / Limitations](#limitations)
-- [Future Scope](#future_scope)
-- [Setting up a local environment](#getting_started)
-- [Usage](#usage)
-- [Technology Stack](#tech_stack)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgments)
+The system enables students speaking different languages (currently English, isiZulu, and Afrikaans) to communicate naturally through automatic translation, while spatial audio—implemented via Head Related Transfer Function (HRTF)—creates an immersive auditory environment that mimics natural sound localisation.
 
-## 🧐 Problem Statement <a name = "problem_statement"></a>
+---
 
-It is useful to design and follow a specific format when writing a problem statement. While there are several options
-for doing this, the following is a simple and straightforward template often used in Business Analysis to maintain
-focus on defining the problem.
+## 🎯 Problem Statement
 
-- IDEAL: This section is used to describe the desired or “to be” state of the process or product. At large, this section
-  should illustrate what the expected environment would look like once the solution is implemented.
-- REALITY: This section is used to describe the current or “as is” state of the process or product.
-- CONSEQUENCES: This section is used to describe the impacts on the business if the problem is not fixed or improved upon.
-  This includes costs associated with loss of money, time, productivity, competitive advantage, and so forth.
+Current Smart Learning Environments lack effective tools for translanguaging—a pedagogical approach that allows multilingual students to leverage their full linguistic repertoire for improved comprehension. Despite South Africa's rich linguistic diversity, where most students know more than one language, existing SLEs:
 
-Following this format will result in a workable document that can be used to understand the problem and elicit
-requirements that will lead to a winning solution.
+- Do not support real-time cross-lingual communication
+- Lack perspective sharing mechanisms for immersive collaborative learning
+- Fail to accommodate the cultural and cognitive resources of multilingual students
 
-## 💡 Idea / Solution <a name = "idea"></a>
+This gap limits the inclusive potential of SLEs and hinders academic success for multilingual learners.
 
-This section is used to describe potential solutions.
+---
 
-Once the ideal, reality, and consequences sections have been
-completed, and understood, it becomes easier to provide a solution for solving the problem.
+## 💡 Solution
 
-## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
+ClassifySpeech addresses these challenges through three integrated components:
 
-- What are the dependencies of your project?
-- Describe each limitation in detailed but concise terms
-- Explain why each limitation exists
-- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
-- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
-  appropriate, describe how these limitations could point to the need for further research.
+1. **Real-Time Speech-to-Speech Translation**: Converts spoken language directly into another spoken language using Automatic Speech Recognition (ASR), Neural Machine Translation (NMT), and Text-to-Speech (TTS) synthesis.
 
-## 🚀 Future Scope <a name = "future_scope"></a>
+2. **Perspective Sharing**: Enables multiple users to view, explore, and interact within a shared virtual environment, fostering presence and connection across geographical distances.
 
-Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
-in the future.
+3. **Spatial Audio (HRTF)**: Simulates 3D auditory cues that reflect how natural sound reaches a listener's ears from different directions and distances, enhancing immersion and comprehension.
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+---
 
-These instructions will get you a copy of the project up and running on your local machine for development
-and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+## 🧪 Methodology
+
+The prototype was developed following **Design Science Research (DSR)** principles as conceptualised by Hevner, focusing on iterative creation and refinement of artifacts to solve real-world problems.
+
+### Development Approach
+
+- **Iterative Prototyping**: Each mini-prototype was built, tested, and refined based on user feedback
+- **Controlled & Classroom Testing**: Evaluations conducted in both isolated environments and real classroom settings (15-person classroom)
+- **User-Centred Design**: Continuous refinement of interface elements, translation accuracy, and audio clarity
+
+### Key Metrics
+
+| Metric | Target | Description |
+|--------|--------|-------------|
+| Translation Accuracy | ≥ 80% | Percentage of correct translations against references |
+| Response Time | < 3 seconds | Delay between audio input and translated output |
+| Audio Clarity | High | Consistency and clarity of speech output with spatial audio |
+
+---
+
+## 🏗️ Technical Stack
+
+### Framework & Language
+- **Django** (MVT Architecture) - Primary web framework for robust audio handling
+- **Python 3.12.4** - Core programming language
+
+### Key Libraries
+
+| Library | Purpose |
+|---------|---------|
+| `gTTS` (unofficial) | Text-to-speech conversion for natural audio output |
+| `googleTrans` | Multilingual text translation |
+| `speech_recognition` | Audio-to-text conversion |
+| `pydub` | Audio file manipulation (format conversion, segmentation) |
+| `noisereduce` | Background noise reduction for clearer input |
+| `librosa` | Audio analysis and feature extraction |
+| `numpy` & `scipy` | Mathematical operations and audio waveform processing |
+
+### Audio Processing Pipeline
+
+1. **Input**: User speaks into microphone → audio saved as WAV
+2. **Noise Reduction**: Background noise minimised for clarity
+3. **Speech Recognition**: Audio transcribed to text
+4. **Translation**: Text translated to target language
+5. **TTS Synthesis**: Translated text converted to speech
+6. **Spatial Audio**: HRTF applied for 3D sound localisation
+
+---
+
+## ✨ Features
+
+- **Real-Time Translation**: Supports English, isiZulu, and Afrikaans
+- **Spatial Audio**: HRTF-based 3D sound localisation for immersive experience
+- **Noise Reduction**: Enhanced audio clarity in classroom environments
+- **Intuitive Interface**: User-centred design with written translation display
+- **Cross-Platform**: Web-based accessibility
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+- Python 3.12.4 or higher
+- pip (Python package manager)
+- Git
+- Working microphone and speakers/headphones
 
-```
-Give examples
-```
+### Installation
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
+1. **Clone the repository**
+```bash
+git clone https://github.com/jazbengu/ClassifySpeech.git
+cd ClassifySpeech
 ```
 
-And repeat
-
+2. **Create and activate a virtual environment**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
-until finished
+
+3. **Install dependencies**
+```bash
+pip install -r requirements.txt
 ```
 
-## 🎈 Usage <a name="usage"></a>
+4. **Apply database migrations**
+```bash
+python manage.py migrate
+```
 
-Add notes about how to use the system.
+5. **Run the development server**
+```bash
+python manage.py runserver
+```
 
-## ⛏️ Built With <a name = "tech_stack"></a>
+6. **Access the application**
+Open your browser and navigate to `http://127.0.0.1:8000`
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+---
 
-## ✍️ Authors <a name = "authors"></a>
+## 📊 Results & Findings
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
+### Translation Performance
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors)
-who participated in this project.
+| Language Pair | Accuracy | Notes |
+|---------------|----------|-------|
+| English ↔ Afrikaans | High (~80%+) | Strong performance due to library support |
+| English ↔ isiZulu | Moderate (~60%) | Limited TTS support for African languages |
 
-## 🎉 Acknowledgments <a name = "acknowledgments"></a>
+### Key Findings
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- **European languages** (Afrikaans, French, Spanish) demonstrated strong performance with accurate and natural audio output
+- **African languages** (isiZulu) showed reasonable translation accuracy but significant challenges in natural voice synthesis
+- **Phonetic challenges**: Bantu languages have tonal nuances not captured by TTS libraries designed for Germanic/Romance languages
+- **Spatial audio**: HRTF performed adequately in controlled environments (small room, empty classroom), with optimal results using stereo earphones
+
+---
+
+## ⚠️ Challenges & Limitations
+
+### Technical Limitations
+
+1. **TTS Support**: Limited support for South African languages; Google Translate lacks vocal support for African languages
+2. **Library Compatibility**: Mozilla TTS only supports Python 3.3–3.9, incompatible with Python 3.12.4
+3. **Cultural Context**: Systems lack awareness of cultural nuances (e.g., greeting elders requires "Sanibonani" vs "Sawubona")
+4. **HRTF Customisation**: Finding optimal Head Related Transfer Function parameters is time-consuming; everyone's ears are anatomically unique
+
+### Translation-Specific Issues
+
+- **Tonal accuracy**: isiZulu's tonal nuances often missed in translation
+- **Phonetic inaccuracies**: Become more apparent in complex classroom sentences
+- **Cost barriers**: Commercial TTS services (Amazon Polly, Google Cloud TTS) require payment
+
+---
+
+## 🔮 Future Work
+
+1. **African Language TTS**: Develop and train synthetic voices specifically for South African languages, incorporating regional accents and tonal nuances
+
+2. **Automated HRTF Processing**: Create dynamic customisation for spatial audio that adapts to individual anatomy and classroom scenarios
+
+3. **Cultural Context Integration**: Incorporate cultural awareness into translation algorithms for authentic communication
+
+4. **Expanded Language Support**: Add more South African languages (isiXhosa, Setswana, Sesotho, etc.)
+
+5. **Classroom Deployment**: Pilot testing in active classroom environments with diverse student populations
+
+---
+
+## 📚 Research Context
+
+This project was developed as part of a COS700 research report at the University of Pretoria, supervised by Dr. Linda Marshall. The research explored:
+
+- **Translanguaging** as a pedagogical strategy for multilingual classrooms
+- **Perspective Sharing** as a framework for immersive collaborative learning
+- **Spatial Audio (HRTF)** for enhanced auditory immersion
+- **Smart Learning Environments** as technology-enhanced adaptive learning systems
+
+---
+
+## 📖 References
+
+Key sources informing this research:
+
+- Hevner, A. & Chatterjee, S. *Design Research in Information Systems: Theory and Practice*
+- García, O. & Wei, L. *Translanguaging*
+- Hwang, G.-J. "Definition, framework and research issues of smart learning environments"
+- Pieterse, T. & Marshall, L. "Modelling Interactive 3d Perspective Sharing for Online Learning"
+- Dhawan, S. "Speech To Speech Translation: Challenges and Future"
+- Li, S. & Peissig, J. "Measurement of Head-Related Transfer Functions: A Review"
+
+---
+
+## 👥 Authors
+
+- **Joy Azile Zoe Bengu** - *Design, Development & Research* - [@jazbengu](https://github.com/jazbengu)
+- **Dr. Linda Marshall** - *Supervisor* - University of Pretoria
+
+---
+
+## 🙏 Acknowledgments
+
+- University of Pretoria, Department of Computer Science
+- Dr. Linda Marshall for supervision and guidance
+- All testing participants who provided valuable feedback
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🔗 Links
+
+- **Research Report**: [COS700_Research_Report_2500307.pdf](COS700_Research_Report_2500307.pdf)
+- **GitHub Repository**: [https://github.com/jazbengu/ClassifySpeech](https://github.com/jazbengu/ClassifySpeech)
+
+---
+
+*Built with ❤️ for inclusive multilingual education*
